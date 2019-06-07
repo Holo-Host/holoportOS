@@ -8,6 +8,7 @@ The Holoport Project
   - [I want a holoport, can I still order one?](#sec-1-3)
   - [What if I can't afford a HoloPort?](#sec-1-4)
   - [Installation of Holoport OS on X86_64 Holoport hardware](#sec-1-5)
+  - [HoloportOS Installed Versions](#sec-1-6)
 
 # FAQ<a id="sec-1"></a>
 
@@ -57,7 +58,7 @@ To that end, if you'd like to help out, feel free to check out the [Holo-Host gi
 8. reboot and the system should boot into the nixos-based holoportos
 
 
-## HoloportOS Installed Versions
+## HoloportOS Installed Versions<a id="sec-1-6"></a>
 
 Versions, notes, and links, to pre-installed utilities on HoloportOS.
 
