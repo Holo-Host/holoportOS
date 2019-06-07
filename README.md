@@ -55,3 +55,20 @@ To that end, if you'd like to help out, feel free to check out the [Holo-Host gi
 7. Run `nixos-install --no-root-passwd`
 
 8. reboot and the system should boot into the nixos-based holoportos
+
+
+## HoloportOS Installed Versions
+
+Versions, notes, and links, to pre-installed utilities on HoloportOS.
+
+| Code | Version | Notes |
+| -------- | -------- | -------- |
+| holochain-rust | 0.0.12-alpha1 |
+| n3h | v0.0.11-alpha |
+| envoy | https://github.com/samrose/envoy/tree/aca74edc842073f62eec4cda3e6f66b8a0f9f71a |
+| HoloHosting App | https://github.com/samrose/envoy/tree/aca74edc842073f62eec4cda3e6f66b8a0f9f71a |
+| HoloHosting App GUI | https://github.com/samrose/envoy/tree/aca74edc842073f62eec4cda3e6f66b8a0f9f71a |
+| Service Logger | (currently ?) |
+| HoloFuel | https://github.com/samrose/envoy/tree/aca74edc842073f62eec4cda3e6f66b8a0f9f71a |
+| holofuel-gui | |
+| hApp store | https://github.com/samrose/envoy/tree/aca74edc842073f62eec4cda3e6f66b8a0f9f71a |
