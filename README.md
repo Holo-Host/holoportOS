@@ -24,9 +24,6 @@ curl https://nixos.org/nix/install; nix-env -i holochain-go
 
 You can follow along development of holoport in the work in [our fork of nixpkgs](https://github.com/holo-host/nixpkgs), but keep in mind that as of 19/07 we have lots of other repos and worktrees which are private, and we are working to take our first steps of bringing this part of the project into an organized Relevant mattermost channel would be [Holoport / Host Q&A](https://chat.holochain.org/appsup/channels/holoport-host-qa)
 
-## I want a holoport, can I still order one?<a id="sec-1-3"></a>
-
-Ask in the [Holoport Channel](https://chat.holochain.org/appsup/channels/holoport-host-qa) on public mattermost, and mention @gavinrogers
 
 ## What if I can't afford a HoloPort?<a id="sec-1-4"></a>
 
