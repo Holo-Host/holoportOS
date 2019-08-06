@@ -44,7 +44,7 @@ rec {
       rm -rf .git*
       echo -n "$VERSION_SUFFIX" > .version-suffix
       echo -n ${holoport.rev or holoport.shortRev} > .git-revision
-      releaseName=holoport-$VERSION$VERSION_SUFFIX
+      releaseName=holoport-legacy-migrate-$VERSION$VERSION_SUFFIX
       mkdir -p $out/tarballs
       cp -prd . ../$releaseName
       cd ..
