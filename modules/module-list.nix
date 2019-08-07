@@ -3,6 +3,7 @@
   ./auto-update.nix
   ./base.nix
   ./udiskie.nix
+  ./upgrade-from-legacy.nix
   ./user.nix
   ./util.nix
   ./version.nix
