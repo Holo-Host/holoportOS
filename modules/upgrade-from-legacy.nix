@@ -28,6 +28,7 @@
       pkgs.gitMinimal
       pkgs.gnutar
       pkgs.gzip
+      pkgs.utillinux
       pkgs.xz.bin
     ];
 
@@ -35,8 +36,13 @@
       rm -r /etc/nixos
       mkdir /etc/nixos
 
-      # TODO: should come up with a way to differentiate between HoloPort and HoloPort+
-      cat ${./upgrade-from-legacy/configuration.nix} > /etc/nixos/configuration.nix
+      cpus=$(lscpu | grep '^CPU(s):' | tr -s ' ' | cut -d ' ' -f2)
+
+      if [ "$cpus" -lt 8 ]; then
+        cat ${./upgrade-from-legacy/holoport/configuration.nix} > /etc/nixos/configuration.nix
+      else
+        cat ${./upgrade-from-legacy/holoport-plus/configuration.nix} > /etc/nixos/configuration.nix
+      fi
 
       nixos-generate-config
 
