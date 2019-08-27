@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  hydraProject = "holopkgs";
-  hydraJobset = "develop";
-  hydraChannel = "holopkgs";
+  hydraProject = "holo-nixpkgs";
+  hydraJobset = "master";
+  hydraChannel = "holo-nixpkgs";
 in
 
 {
@@ -78,7 +78,7 @@ in
       nix-channel --update ${hydraChannel}
 
       nixos-rebuild switch \
-        -I holopkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel} \
+        -I holo-nixpkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel} \
         -I holoport=${config.holoport.modules} \
         -I nixos=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
         -I nixos-config=/etc/nixos/configuration.nix \
