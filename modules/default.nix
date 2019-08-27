@@ -80,10 +80,13 @@ in
         -I nixos=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
         -I nixos-config=/etc/nixos/configuration.nix \
         -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
-        -I nixpkgs-overlays=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/overlays
+        -I nixpkgs-overlays=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/overlays || true
   
       # https://github.com/NixOS/nixpkgs/pull/61321#issuecomment-492423742
       rm -rf /var/lib/systemd/timesync
+
+      # Reboot:
+      shutdown -r
     '';
 
     startAt = "*:0/1";
