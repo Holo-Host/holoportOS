@@ -1,16 +1,14 @@
-let
-  pkgs = import ./pkgs.nix {};
-in
+{ nixpkgs ? { outPath = <nixpkgs>; rev = "latest"; } }:
 
-{ nixpkgs ? { outPath = pkgs.path; rev = "latest"; } }:
+with import nixpkgs {};
 
 let
-  inherit (pkgs.lib.trivial) version versionSuffix;
+  inherit (lib.trivial) version versionSuffix;
 in
 
 rec {
   channels = {
-    holoport = pkgs.releaseTools.channel {
+    holoport = releaseTools.channel {
       name = "holoport";
       src = <holoport>;
       constituents = [ channels.nixpkgs tests.boot ];
@@ -24,4 +22,10 @@ rec {
   tests = {
     boot = import ./tests/boot.nix { inherit pkgs; };
   };
+
+  virtualbox = (import <nixpkgs/nixos> {
+    configuration.imports = [
+      ./modules/virtualbox.nix
+    ];
+  }).config.system.build.virtualBoxOVA;
 }
