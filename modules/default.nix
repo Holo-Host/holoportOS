@@ -7,6 +7,8 @@ let
 in
 
 {
+  imports = [ ./options.nix ];
+
   nix.binaryCaches = [
     "https://cache.holo.host"
     "https://cache.nixos.org"
@@ -77,7 +79,7 @@ in
 
       nixos-rebuild switch \
         -I holopkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel} \
-        -I holoport=${lib.cleanSource ../.} \
+        -I holoport=${config.holoport.modules} \
         -I nixos=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
         -I nixos-config=/etc/nixos/configuration.nix \
         -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
