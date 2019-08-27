@@ -1,6 +1,6 @@
 {
   imports = [
-    <holoportos/profiles/targets/holoport-plus>
+    <holopkgs/profiles/targets/holoport>
     ./hardware-configuration.nix
   ];
   

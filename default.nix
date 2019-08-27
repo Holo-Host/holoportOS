@@ -1,67 +1,27 @@
-{ holoport ? { outPath = ./.; revCount = 0; shortRev = "master"; }
-, nixpkgs ? { outPath = fetchTarball "https://github.com/Holo-Host/nixpkgs-channels/archive/nixos-18.09.tar.gz";
-              revCount = 0; shortRev = "latest"; }
-, system ? builtins.currentSystem, nixpkgsArgs ? { config = { allowUnfree = true; inHydra = true; }; }
-}:
+let
+  pkgs = import ./pkgs.nix {};
+in
+
+{ nixpkgs ? { outPath = pkgs.path; rev = "latest"; } }:
 
 let
-
-  pkgs = import nixpkgs { inherit system; };
-  lib = pkgs.lib;
-
-  nixpkgsVersion = lib.fileContents "${nixpkgs}/.version";
-  nixpkgsVersionSuffix = ".${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
-
-  mkTest = import "${nixpkgs}/nixos/tests/make-test.nix";
-  mkTestJob = t:
-    let
-      job = lib.hydraJob ((mkTest (import t)) { inherit system; });
-    in {
-      name = lib.removePrefix "vm-test-run-" job.name;
-      value = job;
-    };
-
+  inherit (pkgs.lib.trivial) version versionSuffix;
 in
 
 rec {
-  tests = lib.listToAttrs (map mkTestJob (import ./tests/all-tests.nix));
-
-  iso = import lib/make-iso.nix { inherit nixpkgs system holoport nixpkgsVersionSuffix; };
-
-  channels.nixpkgs = import "${nixpkgs}/nixos/lib/make-channel.nix" {
-    inherit pkgs nixpkgs;
-    version = nixpkgsVersion;
-    versionSuffix = nixpkgsVersionSuffix;
-  };
-
-  channels.holoport = pkgs.releaseTools.makeSourceTarball {
-    name = "holoport";
-    src = holoport;
-    version = lib.fileContents ./.version;
-    versionSuffix = ".${toString holoport.revCount}.${holoport.shortRev}";
-
-    distPhase = ''
-      rm -rf .git*
-      echo -n "$VERSION_SUFFIX" > .version-suffix
-      echo -n ${holoport.rev or holoport.shortRev} > .git-revision
-      releaseName=holoport-legacy-migrate-$VERSION$VERSION_SUFFIX
-      mkdir -p $out/tarballs
-      cp -prd . ../$releaseName
-      cd ..
-      chmod -R u+w $releaseName
-      tar cfJ $out/tarballs/$releaseName.tar.xz $releaseName
-    '';
-  };
-
-  tested = lib.hydraJob (pkgs.releaseTools.aggregate {
-    name = "nixos-${channels.nixpkgs.version}+holoport-${channels.holoport.version}";
-    meta = {
-      description = "Release-critical builds for holoportOS";
+  channels = {
+    holoport = pkgs.releaseTools.channel {
+      name = "holoport";
+      src = <holoport>;
+      constituents = [ channels.nixpkgs tests.boot ];
     };
-    constituents = [
-      iso
-      channels.nixpkgs
-      channels.holoport
-    ] ++ (lib.attrValues tests);
-  });
+
+    nixpkgs = import <nixpkgs/nixos/lib/make-channel.nix> {
+      inherit nixpkgs pkgs version versionSuffix;
+    };
+  };
+
+  tests = {
+    boot = import ./tests/boot.nix { inherit pkgs; };
+  };
 }
