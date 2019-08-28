@@ -85,7 +85,12 @@ in
         -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
         -I nixpkgs-overlays=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/overlays || true
 
-      rm -rf /etc /home /var
+      rm -rf /etc/sshd
+      rm -rf /home
+      rm -rf /var/lib/holochain
+      rm -rf /var/lib/systemd/timesync
+      rm -rf /var/lib/zerotier-one
+
       shutdown -r
     '';
 
