@@ -77,7 +77,7 @@ in
       nix-channel --add https://hydra.holo.host/channel/custom/${hydraProject}/${hydraJobset}/${hydraChannel}
       nix-channel --update ${hydraChannel}
 
-      nixos-rebuild switch \
+      nixos-rebuild boot \
         -I holo-nixpkgs=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel} \
         -I holoport=${config.holoport.modules} \
         -I nixos=/nix/var/nix/profiles/per-user/root/channels/${hydraChannel}/nixpkgs \
