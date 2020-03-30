@@ -57,6 +57,8 @@ in
     ];
 
     script = ''
+      set -e
+
       rm -r /etc/nixos
       mkdir /etc/nixos
 
